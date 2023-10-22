@@ -1,0 +1,24 @@
+{
+  "development": {
+    "username": "drakehoffman",
+    "password": "11doz19er99",
+    "database": "music_tour",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "drakehoffman",
+    "password": "11doz19er99",
+    "database": "music_tour_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "drakehoffman",
+    "password": "11doz19er99",
+    "database": "music_tour_production",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
+
