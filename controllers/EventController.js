@@ -6,7 +6,10 @@ const router = express.Router();
 // Route to get all events
 router.get('/', async (req, res) => {
   try {
-    const events = await Event.findAll();
+    const events = await Event.findAll({
+        include: Stage, // Eager loading
+      });
+      ;
     return res.status(200).json(events);
   } catch (error) {
     return res.status(500).json({ error: 'Error fetching events' });
@@ -25,7 +28,7 @@ router.post('/', async (req, res) => {
 
 // Add more routes as needed
 
-
+//INDEX ROUTE
 router.get('/', async (req, res) => {
     try {
       const events = await Event.findAll({ order: [['date', 'ASC']] });
@@ -37,22 +40,25 @@ router.get('/', async (req, res) => {
   
 
   
- 
-router.get('/:eventId', async (req, res) => {
-    const eventId = req.params.eventId;
+ //SHOW ROUTE
+router.get('/:eventName', async (req, res) => {
+    const eventName = req.params.eventName;
   
     try {
-      const event = await Event.findByPk(eventId);
+      const event = await Event.findOne({ where: { name: eventName } });
+  
       if (!event) {
         return res.status(404).json({ error: 'Event not found' });
       }
+  
       return res.status(200).json(event);
     } catch (error) {
       return res.status(500).json({ error: 'Error fetching the event' });
     }
   });
-
   
+
+  //CREATE ROUTE
 router.post('/', async (req, res) => {
     try {
       const event = await Event.create(req.body);
@@ -62,7 +68,7 @@ router.post('/', async (req, res) => {
     }
   });
   
-
+//UPDATE ROUTE
 router.put('/:eventId', async (req, res) => {
     const eventId = req.params.eventId;
   
@@ -77,7 +83,7 @@ router.put('/:eventId', async (req, res) => {
     }
   });
 
-
+//DELETE ROUTE
 router.delete('/:eventId', async (req, res) => {
     const eventId = req.params.eventId;
   
@@ -92,7 +98,8 @@ router.delete('/:eventId', async (req, res) => {
     }
   });
   
- 
+
+  
  
   
   

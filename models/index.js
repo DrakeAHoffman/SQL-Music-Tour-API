@@ -8,21 +8,26 @@ const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.json')[env];
 const db = {};
+// Import the Sequelize database instance
+
+
+// Destructure the models from the db
+//const { Event, Stage } = require('../models')
+
+// Your controller or route handler functions
+
 
 const express = require('express');
 const app = express();
-const eventController = require('./controllers/EventController');
-const stageController = require('./controllers/StageController');
+const eventController = require('../controllers/EventController');
+const stageController = require('../controllers/StageController');
 
 app.use('/events', eventController);
 app.use('/stages', stageController);
 
 // Other middleware and server setup
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+
 
 
 let sequelize;

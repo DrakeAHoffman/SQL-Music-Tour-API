@@ -23,8 +23,10 @@ router.post('/', async (req, res) => {
   }
 });
 
+
 // Add more routes as needed
 
+//INDEX ROUTE
 router.get('/', async (req, res) => {
     try {
       const stages = await Stage.findAll();
@@ -34,20 +36,25 @@ router.get('/', async (req, res) => {
     }
   });
 
-  router.get('/:stageId', async (req, res) => {
-    const stageId = req.params.stageId;
+  //SHOW ROUTE
+router.get('/:stageName', async (req, res) => {
+    const stageName = req.params.stageName;
   
     try {
-      const stage = await Stage.findByPk(stageId);
+      const stage = await Stage.findOne({ where: { name: stageName } });
+  
       if (!stage) {
         return res.status(404).json({ error: 'Stage not found' });
       }
+  
       return res.status(200).json(stage);
     } catch (error) {
       return res.status(500).json({ error: 'Error fetching the stage' });
     }
   });
+  
 
+  //CREATE ROUTE
   router.post('/', async (req, res) => {
     try {
       const stage = await Stage.create(req.body);
@@ -57,7 +64,7 @@ router.get('/', async (req, res) => {
     }
   });
 
-
+//UPDATE ROUTE
   router.put('/:stageId', async (req, res) => {
     const stageId = req.params.stageId;
   
@@ -72,6 +79,7 @@ router.get('/', async (req, res) => {
     }
   });
   
+  //DELETE ROUTE
   router.delete('/:stageId', async (req, res) => {
     const stageId = req.params.stageId;
   
