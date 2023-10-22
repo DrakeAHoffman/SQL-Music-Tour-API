@@ -9,6 +9,22 @@ const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.json')[env];
 const db = {};
 
+const express = require('express');
+const app = express();
+const eventController = require('./controllers/EventController');
+const stageController = require('./controllers/StageController');
+
+app.use('/events', eventController);
+app.use('/stages', stageController);
+
+// Other middleware and server setup
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+
+
 let sequelize;
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
